@@ -3,6 +3,7 @@ package io.linklabelui.view;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicLabelUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -13,10 +14,15 @@ import java.awt.event.MouseListener;
  */
 public class LinkLabelUI extends BasicLabelUI {
 
-    protected static final String PREFIX_UI = "LinkLabel.";
+    private static final String PREFIX_UI = "LinkLabel.";
 
     protected static final Color COSMO_STRONG_BLUE = new ColorUIResource(25, 103, 190);
     protected static final Color COSMO_BLUE = new ColorUIResource(39, 128, 227);
+
+    @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
+    public static ComponentUI createUI(JComponent c) {
+        return new LinkLabelUI();
+    }
 
     protected JLabel label;
     protected Color background;
@@ -25,6 +31,7 @@ public class LinkLabelUI extends BasicLabelUI {
     protected Boolean mouseHoverEnable;
     protected boolean mouseIsHover = false;
     protected MouseListener mouseHoverEvent;
+    //TODO add all listener to change the color when the method setForeground and setBackground will call on component
 
     @Override
     protected void installDefaults(JLabel c) {
@@ -53,7 +60,7 @@ public class LinkLabelUI extends BasicLabelUI {
             realLeft += insets.left;
         }
         if(mouseIsHover){
-            g.setColor(COSMO_BLUE);
+            g.setColor(mouseHoverColor);
             g.drawLine(realLeft, c.getHeight() - 2, realWidth, c.getHeight() - 2);
         }else {
             g.setColor(foreground);
@@ -63,7 +70,7 @@ public class LinkLabelUI extends BasicLabelUI {
     @Override
     protected void installListeners(JLabel c) {
         super.installListeners(c);
-        mouseHoverEvent = new MouseHoverEvent();
+        mouseHoverEvent = new LinkLabelEvent();
         c.addMouseListener(mouseHoverEvent);
     }
 
@@ -77,6 +84,7 @@ public class LinkLabelUI extends BasicLabelUI {
 
     protected Color hasPersonalConf(String uiPropriety, Color defaultValue){
         String completeProperty = PREFIX_UI + uiPropriety;
+        System.out.println(completeProperty);
         Color color = UIManager.getColor(completeProperty);
         if(color != null){
             return color;
@@ -93,7 +101,7 @@ public class LinkLabelUI extends BasicLabelUI {
         return defaultValue;
     }
 
-    public class MouseHoverEvent implements MouseListener{
+    public class LinkLabelEvent implements MouseListener{
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -123,13 +131,15 @@ public class LinkLabelUI extends BasicLabelUI {
         private void isOver(MouseEvent e, boolean isOver){
             JLabel label = (JLabel) e.getSource();
             if(label != null){
-                 mouseIsHover = isOver;
+                mouseIsHover = isOver;
                 if(mouseIsHover){
-                    label.setForeground(COSMO_BLUE);
+                    label.setForeground(mouseHoverColor);
+                    label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 }else {
                     label.setForeground(foreground);
+                    label.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 }
-                 //label.repaint();
+                //label.repaint();
             }
         }
     }

@@ -1,16 +1,22 @@
 package io.linklabelui;
 
+import io.linklabelui.view.LinkLabelUI;
 import mdlaf.MaterialLookAndFeel;
+import mdlaf.utils.MaterialColors;
 
 import javax.swing.*;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 import java.awt.*;
 
+/**
+ * @author https://github.com/vincenzopalazzo
+ */
 public class DemoLinkLabelMain extends JFrame {
 
     static {
         try {
+            UIManager.getDefaults().put("LinkLabelUI", LinkLabelUI.class.getCanonicalName());
             UIManager.setLookAndFeel(new MaterialLookAndFeel());
+            UIManager.put("LinkLabel.mouseHoverColor", MaterialColors.DARKLY_GREEN);
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
@@ -19,6 +25,7 @@ public class DemoLinkLabelMain extends JFrame {
     private JTabbedPane tabbedPane;
 
     protected void initView(){
+
         intComponents();
         initActions();
 
@@ -30,9 +37,11 @@ public class DemoLinkLabelMain extends JFrame {
 
     protected void intComponents(){
         StandardSwingLinkLabel panelStandardLib = new StandardSwingLinkLabel();
+        LinkLabelSwingLinkLabel linkLabelSwingLinkLabel = new LinkLabelSwingLinkLabel();
 
         tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Native Style", panelStandardLib);
+        tabbedPane.addTab("Custom Style", linkLabelSwingLinkLabel);
         tabbedPane.setVisible(true);
         super.setContentPane(tabbedPane);
     }

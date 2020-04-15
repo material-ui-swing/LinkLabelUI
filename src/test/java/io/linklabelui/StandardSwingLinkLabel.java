@@ -3,10 +3,6 @@
  */
 package io.linklabelui;
 
-
-import io.linklabelui.view.LinkLabelUI;
-import mdlaf.utils.MaterialColors;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,6 +10,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * @author https://github.com/vincenzopalazzo
+ */
 public class StandardSwingLinkLabel extends JPanel {
 
     protected JLabel linkToVincentGithub;
@@ -41,9 +40,6 @@ public class StandardSwingLinkLabel extends JPanel {
         linkToMaterialTheme = new JLabel(starHtml + "Go to material-ui-swing project" + endHtml);
         linkToMaterialToast = new JLabel(starHtml + "Go to toast project" + endHtml);
         linkToDonation = new JLabel(starHtml + "Support this project" + endHtml);
-
-        linkToVincentGithub = new JLabel("Author library @vincenzopalazzo");
-        linkToVincentGithub.setUI(new LinkLabelUI());
 
         super.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         super.add(Box.createRigidArea(new Dimension(5, 15)));
@@ -79,9 +75,9 @@ public class StandardSwingLinkLabel extends JPanel {
                 }else if(label.equals(linkToMaterialTheme)){
                     link = "https://github.com/vincenzopalazzo/material-ui-swing";
                 }else if(label.equals(linkToMaterialToast)){
-                    link = "";
+                    link = "https://github.com/vincenzopalazzo/toasts-for-swing";
                 }else{
-                    link = "";
+                    link = "https://github.com/sponsors/vincenzopalazzo";
                 }
 
                 Desktop.getDesktop().browse(new URI(link));
