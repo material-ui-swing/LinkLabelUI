@@ -30,18 +30,31 @@ public class LinkLabelUI extends BasicLabelUI {
     protected Color mouseHoverColor;
     protected Boolean mouseHoverEnable;
     protected boolean mouseIsHover = false;
+    private int additionalSpaceToIcon = 0;
     protected MouseListener mouseHoverEvent;
     //TODO add all listener to change the color when the method setForeground and setBackground will call on component
+
+
+    @Override
+    public void installUI(JComponent c) {
+        super.installUI(c);
+    }
 
     @Override
     protected void installDefaults(JLabel c) {
         super.installDefaults(c);
         label = c;
 
+        //font
         this.background = this.hasPersonalConf("background", UIManager.getColor("Label.background"));
+        label.setBackground(background);
         this.foreground = this.hasPersonalConf("foreground", UIManager.getColor("Label.foreground"));
+        label.setForeground(foreground);
         this.mouseHoverEnable = this.hasPersonalConf("mouseHover", true);
         this.mouseHoverColor = this.hasPersonalConf("mouseHoverColor", COSMO_BLUE);
+        label.setBorder(this.hasPersonalConf("border", UIManager.getBorder("Label.border")));
+        label.setFont(this.hasPersonalConf("font", UIManager.getFont("Label.font")));
+        this.additionalSpaceToIcon = UIManager.getInt(PREFIX_UI + "additionalSpaceIcon"); //This return 0 if the value isn't present
     }
 
     @Override
@@ -54,17 +67,22 @@ public class LinkLabelUI extends BasicLabelUI {
 
         if (border != null) {
             final Insets insets = border.getBorderInsets(c);
-
             realWidth -= insets.right;
             realWidth -= insets.left;
             realLeft += insets.left;
         }
-        if(mouseIsHover){
-            g.setColor(mouseHoverColor);
-            g.drawLine(realLeft, c.getHeight() - 2, realWidth, c.getHeight() - 2);
-        }else {
-            g.setColor(foreground);
+        JLabel label = (JLabel) c;
+        if(label.getIcon() != null){
+            realWidth -= (label.getIcon().getIconWidth() + label.getIconTextGap() + additionalSpaceToIcon);
         }
+        Graphics2D graphics2D = (Graphics2D) g.create();
+        if(mouseIsHover){
+            graphics2D.setColor(mouseHoverColor);
+            graphics2D.drawLine(realLeft, c.getHeight() - 2, realWidth, c.getHeight() - 2);
+        }else {
+            graphics2D.setColor(foreground);
+        }
+        graphics2D.dispose();
     }
 
     @Override
@@ -84,10 +102,27 @@ public class LinkLabelUI extends BasicLabelUI {
 
     protected Color hasPersonalConf(String uiPropriety, Color defaultValue){
         String completeProperty = PREFIX_UI + uiPropriety;
-        System.out.println(completeProperty);
         Color color = UIManager.getColor(completeProperty);
         if(color != null){
             return color;
+        }
+        return defaultValue;
+    }
+
+    protected Font hasPersonalConf(String uiPropriety, Font defaultValue){
+        String completeProperty = PREFIX_UI + uiPropriety;
+        Font font = UIManager.getFont(completeProperty);
+        if(font != null){
+            return font;
+        }
+        return defaultValue;
+    }
+
+    protected Border hasPersonalConf(String uiPropriety, Border defaultValue){
+        String completeProperty = PREFIX_UI + uiPropriety;
+        Border border = UIManager.getBorder(completeProperty);
+        if(border != null){
+            return border;
         }
         return defaultValue;
     }
@@ -139,7 +174,9 @@ public class LinkLabelUI extends BasicLabelUI {
                     label.setForeground(foreground);
                     label.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 }
-                //label.repaint();
+                if(foreground.equals(mouseHoverColor)){
+                    label.repaint();
+                }
             }
         }
     }

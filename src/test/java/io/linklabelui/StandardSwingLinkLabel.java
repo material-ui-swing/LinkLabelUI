@@ -3,6 +3,8 @@
  */
 package io.linklabelui;
 
+import io.linklabelui.view.LinkLabelUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -36,10 +38,13 @@ public class StandardSwingLinkLabel extends JPanel {
     private void initComponent() {
         String starHtml = "<html><a href=''>";
         String endHtml = "</a></html>";
-        linkToVincentGithub = new JLabel(starHtml + "Author library @vincenzopalazzo" + endHtml);
+        //linkToVincentGithub = new JLabel(starHtml + "Author library @vincenzopalazzo" + endHtml);
         linkToMaterialTheme = new JLabel(starHtml + "Go to material-ui-swing project" + endHtml);
         linkToMaterialToast = new JLabel(starHtml + "Go to toast project" + endHtml);
         linkToDonation = new JLabel(starHtml + "Support this project" + endHtml);
+
+        linkToVincentGithub = new JLabel("Test");
+        linkToVincentGithub.setUI(new LinkLabelUI());
 
         super.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         super.add(Box.createRigidArea(new Dimension(5, 15)));

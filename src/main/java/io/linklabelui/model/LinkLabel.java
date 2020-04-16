@@ -1,5 +1,7 @@
 package io.linklabelui.model;
 
+import io.linklabelui.view.LinkLabelUI;
+
 import javax.swing.*;
 import javax.swing.plaf.LabelUI;
 
@@ -19,6 +21,39 @@ public class LinkLabel extends JLabel {
         this.url = url;
     }
 
+    public LinkLabel(String text, String url, Icon icon) {
+        super(text);
+        this.url = url;
+        if(icon != null){
+            setIcon(icon);
+            setHorizontalTextPosition(SwingConstants.LEFT);
+        }
+    }
+
+    public LinkLabel(String url, Icon image, int horizontalAlignment) {
+        super(image, horizontalAlignment);
+        this.url = url;
+    }
+
+    public LinkLabel(String url, Icon image) {
+        super(image);
+        this.url = url;
+    }
+
+    public LinkLabel(String url) {
+        this.url = url;
+    }
+
+    public LinkLabel(String text, String url, Icon icon, int horizontalAlignment) {
+        super(text, icon, horizontalAlignment);
+        this.url = url;
+    }
+
+    public LinkLabel(String text,  String url, int horizontalAlignment) {
+        super(text, horizontalAlignment);
+        this.url = url;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -34,12 +69,10 @@ public class LinkLabel extends JLabel {
     @Override
     public void updateUI() {
         if (UIManager.get(getUIClassID()) != null) {
-            System.out.println("Not null");
             LabelUI ui = (LabelUI) UIManager.getUI(this);
             setUI(ui);
         } else {
-            //TODO Optimizing
-            LabelUI ui = (LabelUI) UIManager.getUI(new JLabel());
+            LabelUI ui = new LinkLabelUI();
             setUI(ui);
         }
     }

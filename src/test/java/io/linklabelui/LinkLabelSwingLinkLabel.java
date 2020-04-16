@@ -5,6 +5,8 @@ package io.linklabelui;
 
 import io.linklabelui.model.LinkLabel;
 import io.linklabelui.view.LinkLabelUI;
+import jiconfont.icons.google_material_design_icons.GoogleMaterialDesignIcons;
+import mdlaf.utils.MaterialImageFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,10 +40,18 @@ public class LinkLabelSwingLinkLabel extends JPanel {
     }
 
     private void initComponent() {
-        linkToVincentGithub = new LinkLabel("Author library @vincenzopalazzo", "https://github.com/vincenzopalazzo");
-        linkToMaterialTheme = new LinkLabel("Go to material-ui-swing project", "https://github.com/vincenzopalazzo/material-ui-swing");
-        linkToMaterialToast = new LinkLabel("Go to toast project", "https://github.com/vincenzopalazzo/toasts-for-swing");
-        linkToDonation = new LinkLabel("Support this project", "https://github.com/sponsors/vincenzopalazzo");
+        linkToVincentGithub = new LinkLabel("Author library @vincenzopalazzo", "https://github.com/vincenzopalazzo", MaterialImageFactory.getInstance().getImage(
+                GoogleMaterialDesignIcons.CHEVRON_RIGHT
+        ));
+        linkToMaterialTheme = new LinkLabel("Go to material-ui-swing project", "https://github.com/vincenzopalazzo/material-ui-swing", MaterialImageFactory.getInstance().getImage(
+                GoogleMaterialDesignIcons.CHEVRON_RIGHT
+        ));
+        linkToMaterialToast = new LinkLabel("Go to toast project", "https://github.com/vincenzopalazzo/toasts-for-swing", MaterialImageFactory.getInstance().getImage(
+                GoogleMaterialDesignIcons.CHEVRON_RIGHT
+        ));
+        linkToDonation = new LinkLabel("Support this project", "https://github.com/sponsors/vincenzopalazzo", MaterialImageFactory.getInstance().getImage(
+                GoogleMaterialDesignIcons.CHEVRON_RIGHT
+        ));
 
         super.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         super.add(Box.createRigidArea(new Dimension(5, 15)));
