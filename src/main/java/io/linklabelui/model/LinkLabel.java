@@ -41,6 +41,7 @@ public class LinkLabel extends JLabel {
     }
 
     public LinkLabel(String url) {
+        super(url);
         this.url = url;
     }
 
