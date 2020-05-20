@@ -63,18 +63,13 @@ public class LinkLabelUI extends BasicLabelUI {
         final Border border = c.getBorder();
 
         int realLeft = 0;
-        int realWidth = c.getWidth();
 
         if (border != null) {
             final Insets insets = border.getBorderInsets(c);
-            realWidth -= insets.right;
-            realWidth -= insets.left;
             realLeft += insets.left;
         }
         JLabel label = (JLabel) c;
-        if(label.getIcon() != null){
-            realWidth -= (label.getIcon().getIconWidth() + label.getIconTextGap() + additionalSpaceToIcon);
-        }
+        int realWidth = label.getFontMetrics(label.getFont()).stringWidth(label.getText());
         Graphics2D graphics2D = (Graphics2D) g.create();
         if(mouseIsHover){
             graphics2D.setColor(mouseHoverColor);
