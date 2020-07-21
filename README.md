@@ -1,8 +1,7 @@
 # LinkLabelUI
+![Maven Central](https://img.shields.io/maven-central/v/io.github.material-ui-swing/LinkLabelUI?color=orange&style=for-the-badge)
 
-:construction_worker: Working in progress :octocat:
-
-This component import import a web component inside the Swing java framework.
+This component import a web component inside the Swing java framework.
 
 With simple JLable component is possible to apply the "anchor" style inside the component with the text like HTML.
 An example:
@@ -21,9 +20,13 @@ Now your question is: why the name is "LinkLabelUI" and not "LinkLabel", the rea
 
 TODO
 
-## Use LinkLabelUI like an component.
+## Use LinkLabelUI such as a component.
 
 TODO
+
+## Possible result
+
+![](https://media.giphy.com/media/UtEa4hAMt9H4rQkupu/giphy.gif)
 
 # Sponsor
 

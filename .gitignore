@@ -5,3 +5,5 @@ build
 #IDE file
 *.iml
 .idea
+
+gradle-private.properties
